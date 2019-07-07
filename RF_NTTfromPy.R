@@ -3,7 +3,6 @@
 library("ape")
 library("phangorn")
 library("readtext")
-setwd("/Users/maryam/Desktop/Research/RF_improvment/FinalCodes")
 options("digits"=22)
 options("scipen"=100)
 #Beta function
@@ -116,9 +115,9 @@ RF_Convolve=function(tree,n){
       
       #read the output of Python
       
-      system('python  /Users/maryam/Desktop/Research/RF_improvment/FinalCodes/python_code/ntt_fromR.py')
+      system('python  /python_code/ntt_fromR.py')
       
-      U=as.matrix(read.csv("/Users/maryam/Desktop/Research/RF_improvment/FinalCodes/outNTT.txt",header = FALSE, quote=""))
+      U=as.matrix(read.csv("outNTT.txt",header = FALSE, quote=""))
       
       Matc=ceiling(length(R1aug)/(3*nrow(R1)))
       sum3=matrix(c(U,numeric(Matc*3*nrow(R1)-length(R1aug))),nrow=3*nrow(R1))[1:nrow(R1),1:ncol(R1)]
@@ -155,6 +154,7 @@ qmT=function(R,n,m){
   return(qmt)
 }
 
+#this function computes the RF distribution
 polynomial=function(tree,n){
   Coef=numeric()
   R=RF_Convolve(tree,n)
