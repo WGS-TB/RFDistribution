@@ -6,19 +6,31 @@ Denote the node adjacent to tip l in T by v_0. Remove tip l, and root the result
 I will show how to compute the distribution of RF distance for a random tree with 8 tips using our implementations in R. The procedure is the same in python.
 
 l=8
+
 tr=rtree(l,rooted=FALSE)
+
 rooted_tree=reroot(tr,n)
+
 rooted_tree=drop.tip(rooted_tree,l)
+
 tree=rooted_tree
+
 #in R using implementation with NTT
+
 sourse("~/RF_NTTfromPy.R")
+
 RF_dis=polynomial(tree,n)
 
 #in R using implementation without NTT
+
 sourse("~/RF_old.R")
+
 RF_dis=polynomial(tree,n)
 
 #compute the distrubiton of this tree by computing its distance to all other tree with 8 tips:
+
 tree_set=allTrees(l)
+
 dis=RF.dist(tr,tree_set)
+
 table(dis)
