@@ -137,7 +137,7 @@ qmT=function(R,n,m){
   }
   return(qmt)
 }
-#this fonction computes the RF distribution 
+#this function computes the RF distribution 
 polynomial=function(tree,n){
   Coef=numeric()
   R=RF_old(tree,n)
