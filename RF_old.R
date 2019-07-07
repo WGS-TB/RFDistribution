@@ -8,7 +8,6 @@ library("readtext")
 #plot(unrooted_tree)
 #rooted_tree=reroot(unrooted_tree,n)
 #plot(rooted_tree)
-#is.rooted(rooted_tree)
 #rooted_tree=drop.tip(rooted_tree,n)
 #plot(rooted_tree)
 #tree=rooted_tree
@@ -138,7 +137,7 @@ qmT=function(R,n,m){
   }
   return(qmt)
 }
-
+#this fonction computes the RF distribution 
 polynomial=function(tree,n){
   Coef=numeric()
   R=RF_old(tree,n)
@@ -147,7 +146,6 @@ polynomial=function(tree,n){
   }
   return(Coef)
 }
-
 
 
 
