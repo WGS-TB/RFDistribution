@@ -27,7 +27,7 @@ sourse("~/RF_old.R")
 
 RF_dis=polynomial(tree,n)
 
-#compute the distrubiton of this tree by computing its distance to all other tree with 8 tips:
+#compute the distrubiton of this tree by computing its distance to all other trees with 8 tips:
 
 tree_set=allTrees(l)
 
