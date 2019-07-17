@@ -17,13 +17,13 @@ tree=rooted_tree
 
 #in R using implementation with NTT
 
-sourse("~/RF_NTTfromPy.R")
+source("~/RF_NTTfromPy.R")
 
 RF_dis=polynomial(tree,n)
 
 #in R using implementation without NTT
 
-sourse("~/RF_old.R")
+source("~/RF_old.R")
 
 RF_dis=polynomial(tree,n)
 
