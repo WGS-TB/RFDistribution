@@ -6,3 +6,13 @@ Denote the node adjacent to tip l in T by v_0. Remove tip l, and root the result
 I will show how to compute the distribution of RF distance for a random tree with 8 tips using our implementations in R. The procedure is the same in python.
 
 
+# Installation
+
+To install the python package, open a terminal and type:<br><br>
+`pip install rfdist`
+
+To install the R package, open a terminal and type:<br><br>
+`R`<br>
+`install.packages("devtools")`<br>
+`library("devtools")`<br>
+`install_github("frankwhoee/rfdistr")`<br>
