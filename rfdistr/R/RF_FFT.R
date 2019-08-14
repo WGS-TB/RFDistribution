@@ -43,13 +43,13 @@ RF_Convolve=function(tree,n){
   ntip=n-1
   N=tree$Nnode
   R=rep(list(matrix(0,(ntip-1),(ntip-1))),N)
-  edges=internaledges(tree,ntip)
+  edges=internaledges(tree)
   B=c()
   for (k in 0:(n-2)) {
-    B[k+1]=Beta(k)        
+    B[k+1]=Beta(k)
   }
   for (v in N:1) {
-    intchild=internalchildren(tree,v+ntip,ntip)
+    intchild=internalchildren(tree,v+ntip)
     intedges=edges[v]
     if(intchild[1]==0){
       R[[v]][1,1]=1
@@ -80,7 +80,7 @@ RF_Convolve=function(tree,n){
         temp=colSums(rowSums(t(t(Rchild2[1:(s-1),])*B[1:(ntip-1)]))*Rchild1[(s-1):1,1:(ntip-2)])
         sum2[s-1,1:(ntip-2)]=temp
       }
-      
+
       R1=Rchild1[1:(ntip-1),1:(ntip-3)]
       R2=Rchild2[1:(ntip-1),1:(ntip-3)]
       R1aug=cbind(R1,matrix(0,nrow(R1),ncol(R1)))
@@ -100,7 +100,7 @@ RF_Convolve=function(tree,n){
 RsT=function(R,n,s){
   B=c()
   for (k in 0:(n-2)) {
-    B[k+1]=Beta(k)        
+    B[k+1]=Beta(k)
   }
   rst =sum(t(t(R[[1]][s+1,1:(n-2-s)])*B[1:(n-2-s)]))
   return(rst)
@@ -116,7 +116,7 @@ qmT=function(R,n,m){
   return(qmt)
 }
 
-polynomial=function(tree,n){
+fft_polynomial=function(tree,n){
   R=RF_Convolve(tree,n)
   for (i in seq(0,2*(n-3),2)) {
     print(qmT(R,n,n-3-(i/2)))

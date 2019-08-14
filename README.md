@@ -5,3 +5,13 @@ Given an unrooted phylogenetic tree with l tips (T), the procedure for computing
 Denote the node adjacent to tip l in T by v_0. Remove tip l, and root the resulting tree with v_0 as the root. We use this rooted tree as the input to the dynamic programming algorithm.
 
 
+# Installation
+
+To install the python package, open a terminal and type:<br><br>
+`pip install rfdist`
+
+To install the R package, open a terminal and type:<br><br>
+`R`<br>
+`install.packages("devtools")`<br>
+`library("devtools")`<br>
+`install_github("frankwhoee/rfdistr")`<br>

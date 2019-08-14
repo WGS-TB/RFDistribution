@@ -63,7 +63,7 @@ RF_old=function(tree,n){
   edges=internaledges(tree)
   B=c()
   for (k in 0:(n-2)) {
-    B[k+1]=Beta(k)        
+    B[k+1]=Beta(k)
   }
   for (v in N:1) {
     intchild=internalchildren(tree,v+ntip)
@@ -97,7 +97,7 @@ RF_old=function(tree,n){
         temp=colSums(rowSums(t(t(Rchild2[1:(s-1),])*B[1:(ntip-1)]))*Rchild1[(s-1):1,1:(ntip-2)])
         sum2[s-1,1:(ntip-2)]=temp
       }
-      
+
       sum3=matrix(0,(ntip-2),(ntip-2))
       for (s in 1:(ntip-2)){
         for (k in 2:(ntip-2)) {
@@ -108,10 +108,10 @@ RF_old=function(tree,n){
             }
             sum3[s,k]=total3
           }
-          
+
         }
       }
-      
+
       R[[v]][2:(ntip-1),2:(ntip-1)]=sum1+sum2+sum3
     }
   }
@@ -123,7 +123,7 @@ RF_old=function(tree,n){
 RsT=function(R,n,s){
   B=c()
   for (k in 0:(n-2)) {
-    B[k+1]=Beta(k)        
+    B[k+1]=Beta(k)
   }
   rst =sum(t(t(R[[1]][s+1,1:(n-2-s)])*B[1:(n-2-s)]))
   return(rst)
@@ -137,7 +137,7 @@ qmT=function(R,n,m){
   }
   return(qmt)
 }
-#this function computes the RF distribution 
+#this function computes the RF distribution
 polynomial=function(tree,n){
   Coef=numeric()
   R=RF_old(tree,n)
