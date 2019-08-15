@@ -46,7 +46,7 @@ internalchildren <- function(tree,v,ntip){
   return(result)
 }
 
-RF_Convolve=function(tree,n){
+ntt_RF_Convolve=function(tree,n){
   tt=0
   t=(n-4)*(n-2)*3
   L= 2^ceiling(log(t)/log(2))
@@ -115,7 +115,7 @@ RF_Convolve=function(tree,n){
 
       #read the output of Python
 
-      system('python  /python_code/ntt_fromR.py')
+      system('python  ntt_fromR.py')
 
       U=as.matrix(read.csv("outNTT.txt",header = FALSE, quote=""))
 
@@ -157,7 +157,7 @@ qmT=function(R,n,m){
 #this function computes the RF distribution
 ntt_polynomial=function(tree,n){
   Coef=numeric()
-  R=RF_Convolve(tree,n)
+  R=ntt_RF_Convolve(tree,n)
   for (i in seq(0,2*(n-3),2)) {
     Coef=c(Coef,qmT(R,n,n-3-(i/2)))
   }

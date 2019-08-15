@@ -39,7 +39,7 @@ internalchildren <- function(tree,v,ntip){
 }
 
 
-RF_Convolve=function(tree,n){
+fft_RF_Convolve=function(tree,n){
   ntip=n-1
   N=tree$Nnode
   R=rep(list(matrix(0,(ntip-1),(ntip-1))),N)
@@ -117,7 +117,7 @@ qmT=function(R,n,m){
 }
 
 fft_polynomial=function(tree,n){
-  R=RF_Convolve(tree,n)
+  R=fft_RF_Convolve(tree,n)
   for (i in seq(0,2*(n-3),2)) {
     print(qmT(R,n,n-3-(i/2)))
   }
