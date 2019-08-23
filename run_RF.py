@@ -1,9 +1,9 @@
 from ete3 import Tree
-import RF
+from rfdist.rfdist.RF import polynomial
 
 def test(newick):
     tree = Tree(newick)
-    print(RF.polynomial(tree, tree.get_leaves().__len__() + 1))
+    print(polynomial(tree, tree.get_leaves().__len__() + 1))
 
 # 8 tip
 # newick ="(((t2:0.8727817549,(t1:0.4722830437,t3:0.5129283739):0.02436175128):0.7209995012,(t4:0.06786046806,t6:0.7481567271):0.07053013402):0.5619613971,((t7:0.1686784215,t8:0.2114313007):0.1445601732,t5:0.8294858425):0.6152706817);"

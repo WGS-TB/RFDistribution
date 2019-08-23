@@ -1,3 +1,2 @@
 ete3
-logging
 numpy
