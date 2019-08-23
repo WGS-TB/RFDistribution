@@ -5,6 +5,7 @@ library("phangorn")
 library("readtext")
 options("digits"=22)
 options("scipen"=100)
+
 #Beta function
 Beta=function(m){
   if(m<=0){ans=1}
@@ -46,7 +47,7 @@ internalchildren <- function(tree,v,ntip){
   return(result)
 }
 
-ntt_RF_Convolve=function(tree,n){
+ntt_RF_Convolve=function(tree,n,verbose=0){
   tt=0
   t=(n-4)*(n-2)*3
   L= 2^ceiling(log(t)/log(2))
@@ -110,20 +111,44 @@ ntt_RF_Convolve=function(tree,n){
       }
 
       #write(L,"testNTT.txt",ncolumns=L,append = TRUE)
-      write(R1aug,"testNTT.txt",ncolumns=L,append = TRUE)
-      write(R2aug,"testNTT.txt",ncolumns=L,append = TRUE)
+      write(R1aug,"~/testNTT.txt",ncolumns=L,append = TRUE)
+      write(R2aug,"~/testNTT.txt",ncolumns=L,append = TRUE)
+
+      #If python script is changed, increment this number.
+      python_ntt_version <- 4
 
       #read the output of Python
+      current_filename <- paste(".ntt_fromR",paste0(python_ntt_version,sep = ""),".py", sep = "")
+      if(length(which(list.files("~",all.files=TRUE) == current_filename)) == 0){
+	      if(verbose == 1){print("ntt_fromR is old, deleted, or was not installed. Installing .ntt_fromR.")}
+	      download.file('https://raw.githubusercontent.com/FrankWhoee/rfdistr/master/.ntt_fromR.py', destfile = paste("~/",current_filename, sep = ""), method="curl")
+	      previous_filename <- paste(".ntt_fromR",paste0(python_ntt_version - 1),".py", sep = "")
+	      if(length(which(list.files("~",all.files=TRUE) == previous_filename)) != 0){
+	        if(verbose == 1){print("Older version of ntt_fromR found, automatically removing")}
+          file.remove(paste("~/",previous_filename, sep = ""))
+        }
+      }
+      if(verbose == 1){print("ntt_fromR file found. Checking for dependencies...")}
 
-      system('python  ntt_fromR.py')
+      if(length(which(grepl("rfdist",system("pip list", intern = TRUE)) == TRUE)) == 0){
+	      if(verbose == 1){print("pip package rfdist was deleted or not installed. Installing rfdist.")}
+        system('pip install rfdist')
+      }
 
-      U=as.matrix(read.csv("outNTT.txt",header = FALSE, quote=""))
+      if(verbose == 1){print("Dependency installed.")
+      print("Attempting to run:")
+      print(current_filename)}
+      system(paste('python ~/',current_filename, sep = ""))
+
+
+      U=as.matrix(read.csv("~/outNTT.txt",header = FALSE, quote=""))
 
       Matc=ceiling(length(R1aug)/(3*nrow(R1)))
       sum3=matrix(c(U,numeric(Matc*3*nrow(R1)-length(R1aug))),nrow=3*nrow(R1))[1:nrow(R1),1:ncol(R1)]
       sum3=cbind(array(0, dim=c(nrow(R1)-1,1)),sum3[2:nrow(R1),])
       R[[v]][2:(ntip-1),2:(ntip-1)]=sum1+sum2+sum3
-      file.remove("testNTT.txt")
+      file.remove("~/testNTT.txt")
+      file.remove("~/outNTT.txt")
 
     }
   }
@@ -155,9 +180,9 @@ qmT=function(R,n,m){
 }
 
 #this function computes the RF distribution
-ntt_polynomial=function(tree,n){
+ntt_polynomial=function(tree,n,verbose=0){
   Coef=numeric()
-  R=ntt_RF_Convolve(tree,n)
+  R=ntt_RF_Convolve(tree,n,verbose)
   for (i in seq(0,2*(n-3),2)) {
     Coef=c(Coef,qmT(R,n,n-3-(i/2)))
   }

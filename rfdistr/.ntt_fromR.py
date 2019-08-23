@@ -1,6 +1,7 @@
-import ntt
+from rfdist import ntt
 import json
 import time
+import os.path
 
 Len=[8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072]
 Primes=[113,115792089237316195423570985008687907853269984665640564039457584007913129637873,
@@ -62,7 +63,7 @@ Inv_L=[99,1085550836599839332095977984456449136124406106240380287869914850074185
         2037004893632210474603310977018868984748962115156511416403800420355825477294773422841921621,
         2135970739633099406506331558604044839577416110609503442457036518698624890730242443329312596558002]
 
-filepath = 'R/testNTT.txt'
+filepath = os.path.expanduser("~") + '/testNTT.txt'
 vec = []
 with open(filepath) as fp:
     line = fp.readline()
@@ -87,5 +88,5 @@ T=end-start
 conv.append(T)
 
 
-with open('R/outNTT.txt', 'w') as outNTT:
+with open(os.path.expanduser("~") + '/outNTT.txt', 'w') as outNTT:
     outNTT.writelines("%s\n" % i for i in conv)
